@@ -1,11 +1,38 @@
-# Build and Release Folders
-bin/
-bin-debug/
-bin-release/
+#here we should list all the files that git should not track
 
-# Other files and folders
-.settings/
+#these files are generated at "compile" time and should never be tracked
+output_files/
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+#db dirs contain generated file and should not be tracked
+db/
+incremental_db/
+
+#these files seems to be generated and should be safer not to track them
+*.qws
+*.ppf
+*.xml
+*.cmp
+*.html
+*.sopcinfo
+*.rpt
+*.mif
+*.hex
+
+#backup files should not be tracked
+
+*.bak
+
+src/greybox_tmp
+greybox_tmp/
+
+#software section
+*.o
+*.d
+*/obj/*
+.*
+*.elf
+*.map
+*.objdump
+software/*_bsp/*
+*Makefile
+*create-this-app
