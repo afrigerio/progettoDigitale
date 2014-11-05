@@ -1,159 +1,88 @@
-module binary2bcd (binary_dist, d0, d1, d2, d3, clk, n_rst);
-input [12-1:0] binary_dist;
+module binary2bcd (binary_input, d3, d2, d1, d0, clk, n_rst);
+
 input clk, n_rst;
-output reg [4-1:0] d0, d1, d2, d3;
+input [12-1:0] binary_input;
+output reg [4-1:0] d3, d2, d1, d0;
 
-reg [12-1:0] shift_reg;
-reg [16-1:0] output_reg;
+//FSM states
+parameter S0 = 2'b00;
+parameter S1 = 2'b01;
+parameter S2 = 2'b10;
 
-reg [4-1:0] current_state, next_state;
+reg [2-1:0] status;
 
-parameter S0 = 4'b0000;  //sample input to
-parameter S1 = 4'b0001;
-parameter S2 = 4'b0010;
-parameter S3 = 4'b0011;
-parameter S4 = 4'b0100;
-parameter S5 = 4'b0101;
-parameter S6 = 4'b0110;
-parameter S7 = 4'b0111;
-parameter S8 = 4'b1000;
-parameter S9 = 4'b1001;
-parameter S10 = 4'b1010;
-parameter S11 = 4'b1011;
-parameter S12 = 4'b1100;
-parameter S13 = 4'b1101;
+//auxiliary registers
+reg [4-1:0] A,B,C,D; //ABCD is a 16 bit auxiliary number, A, B, C, D are groups of four bit representing a decimal number
+reg [12-1:0] input_reg;
 
-//update status - sample input - update output - rst
-always @ (posedge clk or negedge n_rst)
+integer cycle;
+
+always @(posedge clk or negedge n_rst)
 begin
-	//async rst
-	if (!n_rst)
-	begin
-		d0 <= 4'b0;
-		d1 <= 4'b0;
-		d2 <= 4'b0;
-		d3 <= 4'b0;
-		shift_reg <= 12'b0;
-		current_state <= S0;
-	end
-	
+	if(!n_rst)
+		status <= S0;
 	else
 	begin
-		//sample input
-		if (current_state == S0)
-		begin
-			shift_reg <= binary_dist;
-		end
-	
-		//update output at the end of the cycle
-		else if (current_state == S13)       //XXXX
-		begin
-			d0 <= output_reg[4-1:0];
-			d1 <= output_reg[8-1:4];
-			d2 <= output_reg[12-1:8];
-			d3 <= output_reg[16-1:12];
-		end
-	
-		else
-		begin
-			shift_reg <= shift_reg;
-			d0 <= d0;
-			d1 <= d1;
-			d2 <= d2;
-			d3 <= d3;
-		end
+		//default output status
+		d0 <= d0;
+		d1 <= d1;
+		d2 <= d2;
+		d3 <= d3;
 		
-		//update current status
-		current_state <= next_state;
-	end
-end
-
-//update next state and perform the algorithm
-always @ (current_state)
-begin
-	case (current_state)
-	S0:	begin
-				output_reg = 16'b0;
-				next_state = S1;
-			end
-	//Algorithm: shift left shift_reg into output_reg, if any 4bit digit of output_reg is >= 5, sum 3 before shifting
-	S1:	begin
-				output_reg[0] = shift_reg[12-1];
-				next_state = S2;
-			end
-	S2:	begin 
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-2];
-				next_state = S3;
-			end
-	//S3 is the first critical state for the first digit (>= 5)
-	S3:	begin
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-3];
-				next_state = S4;
-			end
-	S4:	begin 
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-4];
-				next_state = S5;
-			end
-	S5:	begin 
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-5];
-				next_state = S6;
-			end
-	S6:	begin
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-6];
-				next_state = S7;
-			end
-	//S7 is the first critical state for the second digit (>= 5)
-	S7:	begin
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-7];
-				next_state = S8;
-			end
-	S8:	begin
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-8];
-				next_state = S9;
-			end
-	S9:	begin
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-9];
-				next_state = S10;
-			end
-	S10:	begin
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-10];
-				next_state = S11;
-			end
-	S11:	begin
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-11];
-				next_state = S12;
-			end
-	S12:	begin
-				output_reg = output_reg << 1;
-				output_reg[0] = shift_reg[12-12];
-				next_state = S13;
-			end
-	S13:  begin
-			next_state = S0;
-			end
-	endcase;
-	
-	if (output_reg[4-1:0] > 4'd4)
-	begin
-		output_reg = output_reg + 16'b0000000000000011;
-	end
-	if (output_reg[8-1:4] > 4'd4)
-	begin
-		output_reg = output_reg + 16'b0000000000110000;
-	end
-	if (output_reg[12-1:8] > 4'd4)
-	begin
-		output_reg = output_reg + 16'b0000001100000000;
+		case(status)
+		S0:
+		begin
+			//reset
+			cycle <= 0;
+			A <= 4'b0;
+			B <= 4'b0;
+			C <= 4'b0;
+			D <= 4'b0;
+			input_reg <= binary_input; //sample the input
+			status <= S1;
+		end	
+		S1:
+		begin
+			//if the group of four bit is >= 5 sum 3 to it
+			if(A >= 3'd5)
+				A = A + 4'd3;
+			if(B >= 3'd5)
+				B = B + 4'd3;
+			if(C >= 3'd5)
+				C = C + 4'd3;
+			if(D >= 3'd5)
+				D = D + 4'd3;
+			
+			//shift everything one place to the left
+			A = A << 1;
+			A[0] = B[4-1];
+			B = B << 1;
+			B[0] = C[4-1];
+			C = C << 1;
+			C[0] = D[4-1];
+			D = D << 1;
+			D[0] = input_reg[12-1-cycle];
+			
+			//check the cycle number, if cycle == 11 the algorithm is completed
+			if(cycle >= 11)
+				status <= S2;
+			else 
+			begin
+				status <= S1;
+				cycle <= cycle + 1; //update the cycle number
+			end	
+		end
+			
+		S2:
+		begin
+			//update the output 
+			d0 <= D;
+			d1 <= C;
+			d2 <= B;
+			d3 <= A;
+			status <= S0;
+		end
+		endcase;
 	end
 end
 
