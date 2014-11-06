@@ -1,0 +1,81 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\Dropbox (Personal)\progettoDigitale\simulation\qsim
+vprogetto
+Z1 IPo_^^OM1QTNU0DZ5JVC6i3
+Z2 VQn^e@:c85c?:7YT8BYS>b0
+Z3 dD:\Dropbox (Personal)\progettoDigitale\simulation\qsim
+Z4 w1415282077
+Z5 8progetto.vo
+Z6 Fprogetto.vo
+L0 31
+Z7 OV;L;10.1d;51
+r1
+31
+Z8 o-work work -O0
+!i10b 1
+Z9 !s100 VNgLCbni4>A5hgTQio=OZ3
+!s85 0
+Z10 !s108 1415282083.062000
+Z11 !s107 progetto.vo|
+Z12 !s90 -work|work|progetto.vo|
+!s101 -O0
+vprogetto_vlg_check_tst
+!i10b 1
+!s100 bz:=HY8`0oI9Xj?8@ch`C2
+I:VmWQV4Z]07QVQdYa?hcI2
+ViGJdcOCl<9hND4QhB:JcZ3
+R3
+Z13 w1415282075
+Z14 8progetto.vt
+Z15 Fprogetto.vt
+L0 61
+R7
+r1
+!s85 0
+31
+Z16 !s108 1415282083.390000
+Z17 !s107 progetto.vt|
+Z18 !s90 -work|work|progetto.vt|
+!s101 -O0
+R8
+vprogetto_vlg_sample_tst
+!i10b 1
+!s100 2lz?Hkce_hJzdzc6a2cXU2
+I8aYS^F3NbV9hh331R?]K_3
+V?@FKc9B1::koR1]>;h6a[0
+R3
+R13
+R14
+R15
+L0 29
+R7
+r1
+!s85 0
+31
+R16
+R17
+R18
+!s101 -O0
+R8
+vprogetto_vlg_vec_tst
+!i10b 1
+!s100 WE<j[YVl6l`5I27]=JQk]0
+I8?5mLoaIiEF2mo3O@EF[92
+Vf`a^XjkA=J9IHBlFmK7ja3
+R3
+R13
+R14
+R15
+L0 665
+R7
+r1
+!s85 0
+31
+R16
+R17
+R18
+!s101 -O0
+R8

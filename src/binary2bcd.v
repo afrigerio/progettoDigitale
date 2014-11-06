@@ -5,9 +5,9 @@ input [12-1:0] binary_input;
 output reg [4-1:0] d3, d2, d1, d0;
 
 //FSM states
-parameter S0 = 2'b00;
-parameter S1 = 2'b01;
-parameter S2 = 2'b10;
+localparam S0 = 2'b00;
+localparam S1 = 2'b01;
+localparam S2 = 2'b10;
 
 reg [2-1:0] status;
 
