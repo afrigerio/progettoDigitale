@@ -15,16 +15,12 @@ localparam counter_max = 22'd30; //simulation value
 //localparam pulse_width = 22'd500; //real value -> 10us
 localparam pulse_width = 22'd4; //simulation value
 
-
-
 reg [22-1:0] start_reg, end_reg, counter; 
 reg [2-1:0] status;
 
-
-
+////////////////////////////
 reg [32-1:0] prova; //XXXXX
 reg [32-1:0] prova1; //XXXXX
-
 
 always @(posedge clk or negedge n_rst)
 begin
@@ -49,6 +45,7 @@ begin
 	case(status)
 		S0: //trigger_out high for 10 us, it wakes up the sensor (counter == 500 clock cycle)
 		begin
+			trigger_out <= 1'b1;
 			if(counter == pulse_width)
 			begin
 				status <= S1;
@@ -56,8 +53,6 @@ begin
 			end
 			else
 				status <= S0;
-				
-			trigger_out <= 1'b1;
 		end
 		
 		S1: //wait for echo_in high
