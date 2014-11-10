@@ -1,19 +1,19 @@
 # do progetto.do 
+# ** Warning: (vlib-34) Library already exists at "work".
+# 
 # Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
-# -- Compiling module progetto
+# -- Compiling module HCSR04_interface
 # 
 # Top level modules:
-# 	progetto
+# 	HCSR04_interface
 # Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
-# -- Compiling module progetto_vlg_sample_tst
-# -- Compiling module progetto_vlg_check_tst
-# -- Compiling module progetto_vlg_vec_tst
+# -- Compiling module HCSR04_interface_vlg_vec_tst
 # 
 # Top level modules:
-# 	progetto_vlg_vec_tst
-# vsim -L cycloneii_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate -c -t 1ps -novopt work.progetto_vlg_vec_tst 
-# Loading work.progetto_vlg_vec_tst
-# Loading work.progetto
+# 	HCSR04_interface_vlg_vec_tst
+# vsim -L cycloneii_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate -c -t 1ps -novopt work.HCSR04_interface_vlg_vec_tst 
+# Loading work.HCSR04_interface_vlg_vec_tst
+# Loading work.HCSR04_interface
 # Loading cycloneii_ver.cycloneii_lcell_comb
 # Loading cycloneii_ver.cycloneii_lcell_ff
 # Loading cycloneii_ver.cycloneii_io
@@ -23,9 +23,6 @@
 # Loading cycloneii_ver.cycloneii_clkctrl
 # Loading cycloneii_ver.cycloneii_mux41
 # Loading cycloneii_ver.cycloneii_ena_reg
-# Loading work.progetto_vlg_sample_tst
-# Loading work.progetto_vlg_check_tst
 # Loading cycloneii_ver.CYCLONEII_PRIM_DFFE
-# Simulation passed !
-# ** Note: $finish    : progetto.vt(661)
-#    Time: 1 us  Iteration: 0  Instance: /progetto_vlg_vec_tst/tb_out
+# ** Note: $finish    : progetto.vt(50)
+#    Time: 1 us  Iteration: 0  Instance: /HCSR04_interface_vlg_vec_tst
