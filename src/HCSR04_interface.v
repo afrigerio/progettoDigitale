@@ -9,18 +9,18 @@ localparam S1 = 2'b01;
 localparam S2 = 2'b10;
 localparam S3 = 2'b11;
 
-//localparam counter_max = 22'b1111111111111111111111; //real value -> almost 100ms
-localparam counter_max = 22'd30; //simulation value
+localparam counter_max = 22'b1111111111111111111111; //real value -> almost 100ms
+//localparam counter_max = 22'd30; //simulation value
 
-//localparam pulse_width = 22'd500; //real value -> 10us
-localparam pulse_width = 22'd4; //simulation value
+localparam pulse_width = 22'd500; //real value -> 10us
+//localparam pulse_width = 22'd4; //simulation value
 
 reg [22-1:0] start_reg, end_reg, counter; 
 reg [2-1:0] status;
 
 ////////////////////////////
-reg [32-1:0] prova; //XXXXX
-reg [32-1:0] prova1; //XXXXX
+//reg [32-1:0] prova; //XXXXX
+//reg [32-1:0] prova1; //XXXXX
 
 always @(posedge clk or negedge n_rst)
 begin
@@ -33,8 +33,8 @@ begin
 		end_reg <= 22'd0;
 		binary_distance <= 12'd0;
 		trigger_out <= 1'b0;
-		prova <= 34 / 10000; //XXXXX
-		prova1 <= 32'd5; //XXXXX
+		//prova <= 34 / 10000; //XXXXX
+		//prova1 <= 32'd5; //XXXXX
 	end
 	else
 	begin
@@ -99,8 +99,8 @@ begin
 			begin
 				counter <= 22'd0;
 				status <= S0;
-				//binary_distance <= (end_reg - start_reg) * 22'd34 / 10000; //range (m) = (end_reg - start_reg) * Tclock * 340 / 2
-				binary_distance <= (end_reg - start_reg) * 22'd34; //for simulation
+				binary_distance <= ((end_reg - start_reg) * 22'd34) / 10000; //range (m) = (end_reg - start_reg) * Tclock * 340 / 2
+				//binary_distance <= (end_reg - start_reg) * 22'd34; //for simulation
 			end
 			else
 				status <= S3;
