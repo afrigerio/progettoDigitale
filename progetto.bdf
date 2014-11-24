@@ -21,7 +21,7 @@ applicable agreement for further details.
 (header "graphic" (version "1.4"))
 (pin
 	(input)
-	(rect 88 -32 256 -16)
+	(rect 264 288 432 304)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
 	(text "KEY[0]" (rect 5 0 40 12)(font "Arial" ))
 	(pt 168 8)
@@ -34,11 +34,11 @@ applicable agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 32 -16 88 0))
+	(annotation_block (location)(rect 208 304 264 320))
 )
 (pin
 	(input)
-	(rect 88 -56 256 -40)
+	(rect 264 264 432 280)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
 	(text "CLOCK_50" (rect 5 0 60 12)(font "Arial" ))
 	(pt 168 8)
@@ -51,7 +51,7 @@ applicable agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 32 -40 88 -24))
+	(annotation_block (location)(rect 208 280 264 296))
 )
 (pin
 	(output)
@@ -123,7 +123,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 96 -104 272 -88)
+	(rect 272 216 448 232)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "LEDG[0]" (rect 90 0 132 12)(font "Arial" ))
 	(pt 0 8)
@@ -136,7 +136,23 @@ applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 272 -88 336 -72))
+	(annotation_block (location)(rect 448 232 512 248))
+)
+(pin
+	(output)
+	(rect 968 352 1144 368)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "UART_TXD" (rect 90 0 145 12)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
 )
 (pin
 	(bidir)
@@ -294,7 +310,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 16 -112 48 -96)
+	(rect 192 208 224 224)
 	(text "VCC" (rect 7 0 27 10)(font "Arial" (font_size 6)))
 	(text "inst4" (rect 3 5 26 17)(font "Arial" )(invisible))
 	(port
@@ -342,6 +358,42 @@ applicable agreement for further details.
 	)
 	(drawing
 		(rectangle (rect 16 16 176 80))
+	)
+)
+(symbol
+	(rect 752 328 928 440)
+	(text "RS232" (rect 5 0 38 12)(font "Arial" ))
+	(text "inst2" (rect 8 96 31 108)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "binary_dist[11..0]" (rect 0 0 86 12)(font "Arial" ))
+		(text "binary_dist[11..0]" (rect 21 27 107 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 3))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 43 35 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "n_rst" (rect 0 0 24 12)(font "Arial" ))
+		(text "n_rst" (rect 21 59 45 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 176 32)
+		(output)
+		(text "tx" (rect 0 0 9 12)(font "Arial" ))
+		(text "tx" (rect 148 27 155 39)(font "Arial" ))
+		(line (pt 176 32)(pt 160 32))
+	)
+	(drawing
+		(rectangle (rect 16 16 160 96))
 	)
 )
 (connector
@@ -401,27 +453,8 @@ applicable agreement for further details.
 	(pt 616 32)
 )
 (connector
-	(text "n_rst" (rect 264 -40 288 -28)(font "Arial" ))
-	(pt 256 -24)
-	(pt 288 -24)
-)
-(connector
-	(text "clk" (rect 264 -64 278 -52)(font "Arial" ))
-	(pt 256 -48)
-	(pt 304 -48)
-)
-(connector
-	(pt 32 -96)
-	(pt 96 -96)
-)
-(connector
 	(pt 632 248)
 	(pt 744 248)
-	(bus)
-)
-(connector
-	(pt 632 96)
-	(pt 632 248)
 	(bus)
 )
 (connector
@@ -449,4 +482,48 @@ applicable agreement for further details.
 	(pt 936 248)
 	(pt 952 248)
 )
+(connector
+	(pt 632 360)
+	(pt 752 360)
+	(bus)
+)
+(connector
+	(pt 632 96)
+	(pt 632 248)
+	(bus)
+)
+(connector
+	(pt 632 248)
+	(pt 632 360)
+	(bus)
+)
+(connector
+	(text "clk" (rect 721 360 735 372)(font "Arial" ))
+	(pt 752 376)
+	(pt 712 376)
+)
+(connector
+	(text "n_rst" (rect 720 376 744 388)(font "Arial" ))
+	(pt 752 392)
+	(pt 712 392)
+)
+(connector
+	(pt 968 360)
+	(pt 928 360)
+)
+(connector
+	(text "n_rst" (rect 440 280 464 292)(font "Arial" ))
+	(pt 432 296)
+	(pt 464 296)
+)
+(connector
+	(text "clk" (rect 440 256 454 268)(font "Arial" ))
+	(pt 432 272)
+	(pt 480 272)
+)
+(connector
+	(pt 208 224)
+	(pt 272 224)
+)
 (junction (pt 632 96))
+(junction (pt 632 248))

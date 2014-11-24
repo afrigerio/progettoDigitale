@@ -68,6 +68,8 @@ begin
 		counter_max = TEN_HZ;
 	else if (binary_dst <= FIVE_CENT)
 		counter_max = ELEVEN_HZ;
+	else
+		counter_max = 26'b0;
 end
 
 //synchronous block to generate bip_en
@@ -83,7 +85,7 @@ begin
 	begin
 		if(sound_enable)
 		begin
-			counter <= counter + 1;
+			counter <= counter + 26'b1;
 			case (status)
 			S0:
 			begin

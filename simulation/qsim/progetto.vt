@@ -18,36 +18,226 @@
 // the top level entity of the current Quartus project .The user can use this   
 // testbench to simulate his design using a third-party simulation tool .       
 // *****************************************************************************
-// Generated on "11/10/2014 17:30:33"
+// Generated on "11/24/2014 15:42:01"
                                                                         
-// Verilog Self-Checking Test Bench (with test vectors) for design :    HCSR04_interface
+// Verilog Self-Checking Test Bench (with test vectors) for design :    RS232
 // 
 // Simulation tool : 3rd Party
 // 
 
 `timescale 1 ps/ 1 ps
-module HCSR04_interface_vlg_vec_tst();
+module RS232_vlg_sample_tst(
+	binary_dist,
+	clk,
+	n_rst,
+	sampler_tx
+);
+input [11:0] binary_dist;
+input  clk;
+input  n_rst;
+output sampler_tx;
+
+reg sample;
+time current_time;
+always @(binary_dist or clk or n_rst)
+                                                                                
+begin                                                 
+ if ($realtime > 0)                                   
+ begin                                                
+	if ($realtime == 0 || $realtime != current_time)  
+	begin									          
+		if (sample === 1'bx)                          
+			sample = 0;                               
+		else                                          
+			sample = ~sample;                         
+	end										          
+	current_time = $realtime;					      
+ end                                                  
+end                                                   
+
+assign sampler_tx = sample;
+endmodule
+
+module RS232_vlg_check_tst (
+	tx,
+	sampler_rx
+);
+input  tx;
+input sampler_rx;
+
+reg  tx_expected;
+
+reg  tx_prev;
+
+reg  tx_expected_prev;
+
+reg  last_tx_exp;
+
+reg trigger;
+
+integer i;
+integer nummismatches;
+
+reg [1:1] on_first_change ;
+
+
+initial
+begin
+trigger = 0;
+i = 0;
+nummismatches = 0;
+on_first_change = 1'b1;
+end
+
+// update real /o prevs
+
+always @(trigger)
+begin
+	tx_prev = tx;
+end
+
+// update expected /o prevs
+
+always @(trigger)
+begin
+	tx_expected_prev = tx_expected;
+end
+
+
+
+// expected tx
+initial
+begin
+	tx_expected = 1'bX;
+	tx_expected = #999000 1'b0;
+end 
+// generate trigger
+always @(tx_expected or tx)
+begin
+	trigger <= ~trigger;
+end
+
+always @(posedge sampler_rx or negedge sampler_rx)
+begin
+`ifdef debug_tbench
+	$display("Scanning pattern %d @time = %t",i,$realtime );
+	i = i + 1;
+	$display("| expected tx = %b | ",tx_expected_prev);
+	$display("| real tx = %b | ",tx_prev);
+`endif
+	if (
+		( tx_expected_prev !== 1'bx ) && ( tx_prev !== tx_expected_prev )
+		&& ((tx_expected_prev !== last_tx_exp) ||
+			on_first_change[1])
+	)
+	begin
+		$display ("ERROR! Vector Mismatch for output port tx :: @time = %t",  $realtime);
+		$display ("     Expected value = %b", tx_expected_prev);
+		$display ("     Real value = %b", tx_prev);
+		nummismatches = nummismatches + 1;
+		on_first_change[1] = 1'b0;
+		last_tx_exp = tx_expected_prev;
+	end
+
+	trigger <= ~trigger;
+end
+initial 
+
+begin 
+$timeformat(-12,3," ps",6);
+#3000000;
+if (nummismatches > 0)
+	$display ("%d mismatched vectors : Simulation failed !",nummismatches);
+else
+	$display ("Simulation passed !");
+$finish;
+end 
+endmodule
+
+module RS232_vlg_vec_tst();
 // constants                                           
 // general purpose registers
+reg [11:0] binary_dist;
 reg clk;
-reg echo_in;
 reg n_rst;
 // wires                                               
-wire [11:0] binary_distance;
-wire trigger_out;
+wire tx;
+
+wire sampler;                             
 
 // assign statements (if any)                          
-HCSR04_interface i1 (
+RS232 i1 (
 // port map - connection between master ports and signals/registers   
-	.binary_distance(binary_distance),
+	.binary_dist(binary_dist),
 	.clk(clk),
-	.echo_in(echo_in),
 	.n_rst(n_rst),
-	.trigger_out(trigger_out)
+	.tx(tx)
 );
-initial 
-begin 
-#1000000 $finish;
+// binary_dist[ 11 ]
+initial
+begin
+	binary_dist[11] = 1'b1;
+	binary_dist[11] = #999000 1'b0;
+end 
+// binary_dist[ 10 ]
+initial
+begin
+	binary_dist[10] = 1'b1;
+	binary_dist[10] = #999000 1'b0;
+end 
+// binary_dist[ 9 ]
+initial
+begin
+	binary_dist[9] = 1'b1;
+	binary_dist[9] = #999000 1'b0;
+end 
+// binary_dist[ 8 ]
+initial
+begin
+	binary_dist[8] = 1'b0;
+end 
+// binary_dist[ 7 ]
+initial
+begin
+	binary_dist[7] = 1'b0;
+end 
+// binary_dist[ 6 ]
+initial
+begin
+	binary_dist[6] = 1'b0;
+end 
+// binary_dist[ 5 ]
+initial
+begin
+	binary_dist[5] = 1'b1;
+	binary_dist[5] = #999000 1'b0;
+end 
+// binary_dist[ 4 ]
+initial
+begin
+	binary_dist[4] = 1'b1;
+	binary_dist[4] = #999000 1'b0;
+end 
+// binary_dist[ 3 ]
+initial
+begin
+	binary_dist[3] = 1'b0;
+end 
+// binary_dist[ 2 ]
+initial
+begin
+	binary_dist[2] = 1'b0;
+end 
+// binary_dist[ 1 ]
+initial
+begin
+	binary_dist[1] = 1'b1;
+	binary_dist[1] = #999000 1'b0;
+end 
+// binary_dist[ 0 ]
+initial
+begin
+	binary_dist[0] = 1'b0;
 end 
 
 // clk
@@ -58,22 +248,24 @@ begin
 	#10000;
 end 
 
-// echo_in
-initial
-begin
-	echo_in = 1'b0;
-end 
-
 // n_rst
 initial
 begin
 	n_rst = 1'b1;
-	n_rst = #10000 1'b0;
-	n_rst = #110000 1'b1;
+	n_rst = #40000 1'b0;
+	n_rst = #40000 1'b1;
 end 
-initial 
-begin 
-#1000000 $finish;
-end 
+
+RS232_vlg_sample_tst tb_sample (
+	.binary_dist(binary_dist),
+	.clk(clk),
+	.n_rst(n_rst),
+	.sampler_tx(sampler)
+);
+
+RS232_vlg_check_tst tb_out(
+	.tx(tx),
+	.sampler_rx(sampler)
+);
 endmodule
 
