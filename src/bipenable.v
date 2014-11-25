@@ -1,7 +1,7 @@
-module bipenable (binary_dst, clk, n_rst, bip_en);
+module bipenable (binary_dst, clk, n_rst, bip_en, motor_en);
 input clk, n_rst;
 input [12-1:0] binary_dst;
-output reg bip_en;
+output reg bip_en, motor_en;
 
 //parameters for the binary_dst ranges
 localparam FIVE_CENT = 12'd50;
@@ -37,9 +37,11 @@ reg sound_enable;
 localparam S0 = 1'b0;
 localparam S1 = 1'b1;
 
+
 //combinatory block to calculate the counter_max value and the sound_enable
 always @ (binary_dst)
 begin
+	motor_en = 1'b1;
 	sound_enable = 1'b1;
 	if (binary_dst > SEVENTY_CENT)
 	begin
@@ -67,7 +69,10 @@ begin
 	else if (binary_dst <= SEVEN_CENT && binary_dst > FIVE_CENT)
 		counter_max = TEN_HZ;
 	else if (binary_dst <= FIVE_CENT)
+	begin
 		counter_max = ELEVEN_HZ;
+		motor_en = 1'b0;
+	end
 	else
 		counter_max = 26'b0;
 end

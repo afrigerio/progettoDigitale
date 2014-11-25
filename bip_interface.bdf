@@ -23,7 +23,7 @@ applicable agreement for further details.
 	(input)
 	(rect -56 -16 128 0)
 	(text "INPUT" (rect 141 0 169 10)(font "Arial" (font_size 6)))
-	(text "binary_dist[11..0]" (rect 5 0 92 12)(font "Arial" ))
+	(text "binary_dist[11..0]" (rect 5 0 91 12)(font "Arial" ))
 	(pt 184 8)
 	(drawing
 		(line (pt 100 12)(pt 125 12))
@@ -39,7 +39,7 @@ applicable agreement for further details.
 	(input)
 	(rect -40 0 128 16)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "clk" (rect 5 0 20 12)(font "Arial" ))
+	(text "clk" (rect 5 0 19 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -55,7 +55,7 @@ applicable agreement for further details.
 	(input)
 	(rect -40 16 128 32)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "n_rst" (rect 5 0 30 12)(font "Arial" ))
+	(text "n_rst" (rect 5 0 29 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -72,6 +72,22 @@ applicable agreement for further details.
 	(rect 816 -16 992 0)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "buzzer" (rect 90 0 120 12)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+)
+(pin
+	(output)
+	(rect 832 88 1008 104)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "motor_en" (rect 90 0 136 12)(font "Arial" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -120,7 +136,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 248 -40 440 72)
+	(rect 248 -40 456 72)
 	(text "bipenable" (rect 5 0 51 12)(font "Arial" ))
 	(text "inst5" (rect 8 96 31 108)(font "Arial" ))
 	(port
@@ -145,14 +161,21 @@ applicable agreement for further details.
 		(line (pt 0 64)(pt 16 64))
 	)
 	(port
-		(pt 192 32)
+		(pt 208 32)
 		(output)
 		(text "bip_en" (rect 0 0 31 12)(font "Arial" ))
-		(text "bip_en" (rect 145 27 176 39)(font "Arial" ))
-		(line (pt 192 32)(pt 176 32))
+		(text "bip_en" (rect 161 27 187 39)(font "Arial" ))
+		(line (pt 208 32)(pt 192 32))
+	)
+	(port
+		(pt 208 48)
+		(output)
+		(text "motor_en" (rect 0 0 46 12)(font "Arial" ))
+		(text "motor_en" (rect 149 43 187 55)(font "Arial" ))
+		(line (pt 208 48)(pt 192 48))
 	)
 	(drawing
-		(rectangle (rect 16 16 176 96))
+		(rectangle (rect 16 16 192 96))
 	)
 )
 (connector
@@ -164,10 +187,6 @@ applicable agreement for further details.
 	(text "n_rst" (rect 512 8 536 20)(font "Arial" ))
 	(pt 616 24)
 	(pt 504 24)
-)
-(connector
-	(pt 440 -8)
-	(pt 616 -8)
 )
 (connector
 	(pt 768 -8)
@@ -188,4 +207,20 @@ applicable agreement for further details.
 	(pt 128 -8)
 	(pt 248 -8)
 	(bus)
+)
+(connector
+	(pt 456 -8)
+	(pt 616 -8)
+)
+(connector
+	(pt 456 8)
+	(pt 480 8)
+)
+(connector
+	(pt 480 96)
+	(pt 480 8)
+)
+(connector
+	(pt 480 96)
+	(pt 832 96)
 )
