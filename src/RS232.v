@@ -5,6 +5,7 @@ input clk, n_rst;
 output reg tx;
 
 //RS232 idle == high
+//The first bit of data byte is 0 for the less significant data byte and 1 for the most significant data byte: this is necessary for synchronization with Labview
 
 localparam S0 = 3'b00; //sampling
 localparam S1 = 3'b01; //start, data_byte, parity bit, stop for the first group of data
@@ -65,10 +66,12 @@ begin
 		
 				if(send_cycle == 0)
 					tx <= 1'b0; //start bit
-				else if(send_cycle >= 1 && send_cycle <= 8)
-					tx <= sample[send_cycle-1]; //starting from the LSB 
+				else if(send_cycle == 1)
+					tx <= 1'b0; //the first bit of the less significant data byte is always zero
+				else if(send_cycle >= 2 && send_cycle <= 8)
+					tx <= sample[send_cycle-2]; //starting from the LSB 
 				else if(send_cycle == 9)
-					tx <= sample[0] ^ sample[1] ^ sample[2] ^ sample[3] ^ sample[4] ^ sample[5] ^ sample[6] ^ sample[7]; //even parity bit
+					tx <= sample[0] ^ sample[1] ^ sample[2] ^ sample[3] ^ sample[4] ^ sample[5] ^ sample[6]; //even parity bit
 				else if(send_cycle == 10)
 					tx <= 1'b1; //stop bit
 				else //error
@@ -94,7 +97,7 @@ begin
 				begin
 					counter <= 13'b0;
 					send_cycle <= send_cycle + 1;
-					if(send_cycle >= 11-1) //start bit, datat byte, parity bit and stop bit have been sent
+					if(send_cycle >= 11-1) //start bit, data byte, parity bit and stop bit have been sent
 					begin
 						status <= S0;
 						send_cycle <= 0;
@@ -107,12 +110,14 @@ begin
 		
 				if(send_cycle == 0)
 					tx <= 1'b0; //start bit
-				else if(send_cycle >= 1 && send_cycle <= 4)
-					tx <= sample[send_cycle+8-1]; //starting from the LSB, second half of data
-				else if(send_cycle >= 5 && send_cycle <= 8)
+				else if(send_cycle == 1)
+					tx <= 1'b1; //the first bit of the most significant data byte is always one
+				else if(send_cycle >= 2 && send_cycle <= 6)
+					tx <= sample[send_cycle+7-1]; //starting from the LSB, second half of data
+				else if(send_cycle >= 7 && send_cycle <= 8)
 					tx <= 1'b0; //unuseful data
 				else if(send_cycle == 9)
-					tx <= sample[0+8] ^ sample[1+8] ^ sample[2+8] ^ sample[3+8]; //even parity bit
+					tx <= sample[0+7] ^ sample[1+7] ^ sample[2+7] ^ sample[3+7] ^ sample[4+7]; //even parity bit
 				else if(send_cycle == 10)
 					tx <= 1'b1; //stop bit
 				else //error
