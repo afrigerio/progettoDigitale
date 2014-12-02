@@ -66,10 +66,10 @@ begin
 		
 				if(send_cycle == 0)
 					tx <= 1'b0; //start bit
-				else if(send_cycle == 1)
-					tx <= 1'b0; //the first bit of the less significant data byte is always zero
-				else if(send_cycle >= 2 && send_cycle <= 8)
-					tx <= sample[send_cycle-2]; //starting from the LSB 
+				else if(send_cycle >= 1 && send_cycle <= 7)
+					tx <= sample[send_cycle-1]; //starting from the LSB 
+				else if(send_cycle == 8)
+					tx <= 1'b0; //the last bit of the less significant data byte is always zero
 				else if(send_cycle == 9)
 					tx <= sample[0] ^ sample[1] ^ sample[2] ^ sample[3] ^ sample[4] ^ sample[5] ^ sample[6]; //even parity bit
 				else if(send_cycle == 10)
@@ -110,12 +110,12 @@ begin
 		
 				if(send_cycle == 0)
 					tx <= 1'b0; //start bit
-				else if(send_cycle == 1)
-					tx <= 1'b1; //the first bit of the most significant data byte is always one
-				else if(send_cycle >= 2 && send_cycle <= 6)
+				else if(send_cycle >= 1 && send_cycle <= 5)
 					tx <= sample[send_cycle+7-1]; //starting from the LSB, second half of data
-				else if(send_cycle >= 7 && send_cycle <= 8)
+				else if(send_cycle >= 6 && send_cycle <= 7)
 					tx <= 1'b0; //unuseful data
+				else if(send_cycle == 8)
+					tx <= 1'b1; //the last bit of the most significant data byte is always one
 				else if(send_cycle == 9)
 					tx <= sample[0+7] ^ sample[1+7] ^ sample[2+7] ^ sample[3+7] ^ sample[4+7]; //even parity bit
 				else if(send_cycle == 10)

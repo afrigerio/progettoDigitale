@@ -99,6 +99,22 @@ applicable agreement for further details.
 		(line (pt 78 12)(pt 82 8))
 	)
 )
+(pin
+	(output)
+	(rect 936 120 1113 136)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "duty_cycle[7..0]" (rect 90 0 171 12)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+)
 (symbol
 	(rect 616 -40 768 72)
 	(text "bipbip" (rect 5 0 33 12)(font "Arial" ))
@@ -136,7 +152,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 248 -40 456 72)
+	(rect 216 -40 448 72)
 	(text "bipenable" (rect 5 0 51 12)(font "Arial" ))
 	(text "inst5" (rect 8 96 31 108)(font "Arial" ))
 	(port
@@ -161,21 +177,28 @@ applicable agreement for further details.
 		(line (pt 0 64)(pt 16 64))
 	)
 	(port
-		(pt 208 32)
+		(pt 232 32)
 		(output)
 		(text "bip_en" (rect 0 0 31 12)(font "Arial" ))
-		(text "bip_en" (rect 161 27 187 39)(font "Arial" ))
-		(line (pt 208 32)(pt 192 32))
+		(text "bip_en" (rect 185 27 211 39)(font "Arial" ))
+		(line (pt 232 32)(pt 216 32))
 	)
 	(port
-		(pt 208 48)
+		(pt 232 48)
 		(output)
 		(text "motor_en" (rect 0 0 46 12)(font "Arial" ))
-		(text "motor_en" (rect 149 43 187 55)(font "Arial" ))
-		(line (pt 208 48)(pt 192 48))
+		(text "motor_en" (rect 173 43 211 55)(font "Arial" ))
+		(line (pt 232 48)(pt 216 48))
+	)
+	(port
+		(pt 232 64)
+		(output)
+		(text "duty_cycle[7..0]" (rect 0 0 81 12)(font "Arial" ))
+		(text "duty_cycle[7..0]" (rect 143 59 211 71)(font "Arial" ))
+		(line (pt 232 64)(pt 216 64)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 192 96))
+		(rectangle (rect 16 16 216 96))
 	)
 )
 (connector
@@ -193,34 +216,49 @@ applicable agreement for further details.
 	(pt 816 -8)
 )
 (connector
-	(text "clk" (rect 208 -8 222 4)(font "Arial" ))
-	(pt 128 8)
-	(pt 248 8)
-)
-(connector
-	(text "n_rst" (rect 216 8 240 20)(font "Arial" ))
-	(pt 128 24)
-	(pt 248 24)
-)
-(connector
-	(text "<<__$DEF_ALIAS1695>>" (rect 152 -24 275 -12)(font "Arial" )(invisible))
+	(text "<<__$DEF_ALIAS1695>>" (rect 120 -24 243 -12)(font "Arial" )(invisible))
 	(pt 128 -8)
-	(pt 248 -8)
+	(pt 216 -8)
 	(bus)
 )
 (connector
-	(pt 456 -8)
+	(text "clk" (rect 176 -8 190 4)(font "Arial" ))
+	(pt 128 8)
+	(pt 216 8)
+)
+(connector
+	(text "n_rst" (rect 184 8 208 20)(font "Arial" ))
+	(pt 128 24)
+	(pt 216 24)
+)
+(connector
+	(pt 448 -8)
 	(pt 616 -8)
 )
 (connector
-	(pt 456 8)
-	(pt 480 8)
+	(pt 448 8)
+	(pt 472 8)
 )
 (connector
-	(pt 480 96)
-	(pt 480 8)
-)
-(connector
-	(pt 480 96)
 	(pt 832 96)
+	(pt 472 96)
+)
+(connector
+	(pt 472 8)
+	(pt 472 96)
+)
+(connector
+	(pt 448 24)
+	(pt 464 24)
+	(bus)
+)
+(connector
+	(pt 464 24)
+	(pt 464 128)
+	(bus)
+)
+(connector
+	(pt 464 128)
+	(pt 936 128)
+	(bus)
 )

@@ -18,10 +18,6 @@ localparam pulse_width = 22'd500; //real value -> 10us
 reg [22-1:0] start_reg, end_reg, counter; 
 reg [2-1:0] status;
 
-////////////////////////////
-//reg [32-1:0] prova; //XXXXX
-//reg [32-1:0] prova1; //XXXXX
-
 always @(posedge clk or negedge n_rst)
 begin
 	if(!n_rst)
@@ -33,8 +29,6 @@ begin
 		end_reg <= 22'd0;
 		binary_distance <= 12'd0;
 		trigger_out <= 1'b0;
-		//prova <= 34 / 10000; //XXXXX
-		//prova1 <= 32'd5; //XXXXX
 	end
 	else
 	begin

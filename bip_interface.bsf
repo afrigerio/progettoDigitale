@@ -20,7 +20,7 @@ applicable agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 16 16 224 112)
+	(rect 16 16 256 112)
 	(text "bip_interface" (rect 5 0 79 14)(font "Arial" (font_size 8)))
 	(text "inst" (rect 8 80 25 92)(font "Arial" ))
 	(port
@@ -45,20 +45,27 @@ applicable agreement for further details.
 		(line (pt 0 64)(pt 16 64))
 	)
 	(port
-		(pt 208 32)
+		(pt 240 32)
 		(output)
 		(text "buzzer" (rect 0 0 40 14)(font "Arial" (font_size 8)))
-		(text "buzzer" (rect 147 27 187 41)(font "Arial" (font_size 8)))
-		(line (pt 208 32)(pt 192 32))
+		(text "buzzer" (rect 179 27 219 41)(font "Arial" (font_size 8)))
+		(line (pt 240 32)(pt 224 32))
 	)
 	(port
-		(pt 208 48)
+		(pt 240 48)
 		(output)
 		(text "motor_en" (rect 0 0 53 14)(font "Arial" (font_size 8)))
-		(text "motor_en" (rect 134 43 187 57)(font "Arial" (font_size 8)))
-		(line (pt 208 48)(pt 192 48))
+		(text "motor_en" (rect 166 43 219 57)(font "Arial" (font_size 8)))
+		(line (pt 240 48)(pt 224 48))
+	)
+	(port
+		(pt 240 64)
+		(output)
+		(text "duty_cycle[7..0]" (rect 0 0 90 14)(font "Arial" (font_size 8)))
+		(text "duty_cycle[7..0]" (rect 129 59 219 73)(font "Arial" (font_size 8)))
+		(line (pt 240 64)(pt 224 64)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 192 80))
+		(rectangle (rect 16 16 224 80))
 	)
 )
