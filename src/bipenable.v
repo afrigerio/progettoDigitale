@@ -37,7 +37,7 @@ reg sound_enable;
 
 localparam S0 = 1'b0;
 localparam S1 = 1'b1;
-localparam duty_max = 8'd85;
+localparam duty_max = 8'd45;
 
 
 //combinatory block to calculate the counter_max value and the sound_enable
