@@ -105,6 +105,7 @@ begin
 	begin
 		counter_max = ELEVEN_HZ;
 		motor_en = 1'b0;
+		duty_cycle = 8'd100; //PWM is OFF
 	end
 	else
 		counter_max = 26'b0;

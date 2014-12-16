@@ -15,7 +15,7 @@ localparam counter_max = 22'b1111111111111111111111; //real value -> almost 100m
 localparam pulse_width = 22'd500; //real value -> 10us
 //localparam pulse_width = 22'd4; //simulation value
 
-reg [22-1:0] start_reg, end_reg, counter; 
+reg [28-1:0] start_reg, end_reg, counter; 
 reg [2-1:0] status;
 
 always @(posedge clk or negedge n_rst)
@@ -25,8 +25,8 @@ begin
 	//RESET
 		status <= S0;
 		counter <= 22'd0;
-		start_reg <= 22'd0;
-		end_reg <= 22'd0;
+		start_reg <= 28'd0;
+		end_reg <= 28'd0;
 		binary_distance <= 12'd0;
 		trigger_out <= 1'b0;
 	end
@@ -93,8 +93,11 @@ begin
 			begin
 				counter <= 22'd0;
 				status <= S0;
-				binary_distance <= ((end_reg - start_reg) * 22'd34) / 10000; //range (m) = (end_reg - start_reg) * Tclock * 340 / 2
+				//binary_distance <= ((end_reg - start_reg) * 22'd34) / 10000; //range (m) = (end_reg - start_reg) * Tclock * 340 / 2
 				//binary_distance <= (end_reg - start_reg) * 22'd34; //for simulation
+				//binary_distance <= 12'b1; //timing?
+				//binary_distance <= ((end_reg - start_reg) * 10'b1101111011) >> 18; //34/10000 is represented on 18 bit of fractionary part (0,003398895263671875), so we shift the result by 18
+				binary_distance <= (((end_reg - start_reg) * 10'b1101111011) >> 18); //34/10000 is represented on 18 bit of fractionary part (0,003398895263671875), so we shift the result by 18
 			end
 			else
 				status <= S3;
